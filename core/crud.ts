@@ -1,9 +1,9 @@
-const fs = require("fs");
+import fs from "fs"; // ES6
 const DB_FILE_PATH = "./core/db";
 console.log("[CRUD]");
 
 
-function create(content) {
+function create(content:string) {
     const todo = {
         content: content,
     };
