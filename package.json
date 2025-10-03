@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Criando um CRUD.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start:crud": "npx ts-node ./core/crud.ts",
     "dev:crud": "nodemon --ext ts,tsx --exec npm run start:crud",
@@ -13,8 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^24.6.2",
-    "es6": "^0.0.7",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.6"
   },
   "repository": {
     "type": "git",
