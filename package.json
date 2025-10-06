@@ -7,6 +7,10 @@
   "scripts": {
     "start:crud": "npx tsx ./core/crud.ts",
     "dev:crud": "nodemon --ext ts,tsx --exec npm run start:crud",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^24.6.2",
+    "@types/react": "19.2.0",
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
@@ -30,6 +35,9 @@
   "homepage": "https://github.com/diego-rng/Crud#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
+    "next": "^15.5.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "uuid": "^13.0.0"
   }
 }
