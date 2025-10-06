@@ -4,10 +4,12 @@ import { v4 as uuid } from 'uuid';
 const DB_FILE_PATH = "./core/db";
 console.log("[CRUD]");
 
+type UUID = string;
+
 interface Todo {
-    id:string;
-    date:string;
-    content:string;
+    id: UUID;
+    date: string;
+    content: string;
     done: boolean;
 }
 function create(content:string): Todo {
@@ -40,7 +42,7 @@ function read(): Array<Todo> {
     return [];
 }
 
-function update(id: string, partialTodo: Partial<Todo>): Todo {
+function update(id: UUID, partialTodo: Partial<Todo>): Todo {
     let updatedTodo;
     const todos=read();
     todos.forEach((currentTodo) =>{
@@ -59,16 +61,34 @@ function update(id: string, partialTodo: Partial<Todo>): Todo {
     }
     
     return updatedTodo;
-    console.log("UPDATED TODOS", todos);
 }
+
+function deleteByID(id: UUID){
+    const todos = read();
+
+    const todosWithoutOne = todos.filter((todo) => {
+        if(id === todo.id){
+            return false;
+        }
+        return true; 
+    }) 
+
+    fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
+        todos: todosWithoutOne,
+    }, null, 2))
+}
+
 function CLEAR_DB() {
     fs.writeFileSync(DB_FILE_PATH, "");
 }
 // [SIMULATION]
 CLEAR_DB();
-create("First TODO");
+const firstTODO = create("First TODO");
+deleteByID(firstTODO.id);
 const secondTODO = create ("Second TODO");
 update(secondTODO.id, {
     content: "Updated!"
 });
-console.log(read());
+const todos = read();
+console.log(todos);
+console.log(todos.length);
