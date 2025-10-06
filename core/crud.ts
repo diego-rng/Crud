@@ -1,4 +1,5 @@
 import * as fs from "fs"; // ES6
+import { v4 as uuid } from 'uuid';
 
 const DB_FILE_PATH = "./core/db";
 console.log("[CRUD]");
@@ -9,9 +10,9 @@ interface Todo {
     content:string;
     done: boolean;
 }
-function create(content:string) {
+function create(content:string): Todo {
     const todo: Todo = {
-        id: "1",
+        id: uuid(),
         date: new Date().toISOString(),
         content: content,
         done: false,
@@ -27,7 +28,7 @@ function create(content:string) {
         todos, 
         dogs: [],
     }, null, 2));
-    return content; 
+    return todo; 
 }
 
 function read(): Array<Todo> {
@@ -38,11 +39,36 @@ function read(): Array<Todo> {
     }
     return [];
 }
+
+function update(id: string, partialTodo: Partial<Todo>): Todo {
+    let updatedTodo;
+    const todos=read();
+    todos.forEach((currentTodo) =>{
+        const isToUpdate = currentTodo.id === id;
+        if(isToUpdate) {
+           updatedTodo = Object.assign(currentTodo, partialTodo);
+        }
+    });
+
+    fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
+        todos,
+    }, null, 2))
+
+    if(!updatedTodo){
+        throw new Error("Please, provide another ID!")
+    }
+    
+    return updatedTodo;
+    console.log("UPDATED TODOS", todos);
+}
 function CLEAR_DB() {
     fs.writeFileSync(DB_FILE_PATH, "");
 }
 // [SIMULATION]
 CLEAR_DB();
 create("First TODO");
-create ("Second TODO");
+const secondTODO = create ("Second TODO");
+update(secondTODO.id, {
+    content: "Updated!"
+});
 console.log(read());

@@ -1,17 +1,16 @@
 {
   "todos": [
     {
-      "id": "1",
-      "date": "2025-10-03T19:45:01.030Z",
+      "id": "16f7d62e-7758-4313-ba9f-0ff5870ebebf",
+      "date": "2025-10-06T17:30:35.929Z",
       "content": "First TODO",
       "done": false
     },
     {
-      "id": "1",
-      "date": "2025-10-03T19:45:01.032Z",
-      "content": "Second TODO",
+      "id": "dd8d264e-9fbf-4c23-ac86-edfb4312c8b8",
+      "date": "2025-10-06T17:30:35.930Z",
+      "content": "Updated!",
       "done": false
     }
-  ],
-  "dogs": []
+  ]
 }
