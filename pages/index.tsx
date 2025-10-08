@@ -1,12 +1,16 @@
 import React from "react"
+import { GlobalStyles } from "../src/theme/GlobalStyles.tsx";
+
+const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
 
 function HomePage() {
     return (
     
     <main>
+      <GlobalStyles themeName="red"/>
       <header
         style={{
-            //  backgroundImage: `url('${bg}')`,
+              backgroundImage: `url('${bg}')`,
         }}
         >
         <div className="typewriter">
