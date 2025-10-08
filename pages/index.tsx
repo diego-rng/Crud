@@ -1,9 +1,29 @@
 import React from "react"
 import { GlobalStyles } from "@ui/theme/GlobalStyles.tsx";
+import { todo } from "node:test";
+import type { Todo } from "@db-crud-todo";
 
 const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
 
+const todos : Todo[] = [
+    {
+      id: "8f834201-3844-4c6c-b903-ab1f5316acf5",
+      date: "2025-10-08T19:47:42.301Z",
+      content: "First TODO",
+      done: false
+    },
+    {
+      id: "c24e21e3-fbb5-4aa8-8c8f-2f46fe2f866c",
+      date: "2025-10-08T19:47:42.302Z",
+      content: "Updated!",
+      done: false
+    }
+  ];
+
 function HomePage() {
+    console.log("todos", todos);
+
+    const [page, setPage] = React.useState(1); 
     return (
     
     <main>
@@ -51,16 +71,17 @@ function HomePage() {
           </thead>
 
           <tbody>
-              <tr>
+            {todos.map((todo)=> {
+                return (
+                     <tr key={todo.id}>
                 <td>
                   <input
                     type="checkbox"
                     />
                 </td>
-                <td>d4f26</td>
+                <td>{todo.id.substring(0, 4)}</td>
                 <td>
-                  Conteúdo de uma TODO
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque vero facilis obcaecati, autem aliquid eius! Consequatur eaque doloribus laudantium soluta optio odit, provident, ab voluptates doloremque voluptas recusandae aspernatur aperiam.
+                    {todo.content}
                 </td>
                 <td align="right">
                   <button
@@ -70,6 +91,9 @@ function HomePage() {
                   </button>
                 </td>
               </tr>
+                )
+            })}
+             
 
               <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
@@ -86,9 +110,9 @@ function HomePage() {
               <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   <button
-                    data-type="load-more"
+                    data-type="load-more" onClick={() => setPage(page + 1)}
                     >
-                    Carregar mais{" "}
+                    Página {page}, Carregar mais{" "}
                     <span
                       style={{
                           display: "inline-block",

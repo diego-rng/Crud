@@ -1,8 +1,14 @@
 {
   "todos": [
     {
-      "id": "a7d2cb37-3851-4e4d-ae19-94d90731e25a",
-      "date": "2025-10-08T17:22:05.984Z",
+      "id": "8f834201-3844-4c6c-b903-ab1f5316acf5",
+      "date": "2025-10-08T19:47:42.301Z",
+      "content": "First TODO",
+      "done": false
+    },
+    {
+      "id": "c24e21e3-fbb5-4aa8-8c8f-2f46fe2f866c",
+      "date": "2025-10-08T19:47:42.302Z",
       "content": "Updated!",
       "done": false
     }
