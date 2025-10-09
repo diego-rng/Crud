@@ -2,28 +2,31 @@ import React from "react"
 import { GlobalStyles } from "@ui/theme/GlobalStyles.tsx";
 import { todo } from "node:test";
 import type { Todo } from "@db-crud-todo";
+import { todoController } from "@ui/controller/todo.ts";
 
 const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
 
-const todos : Todo[] = [
-    {
-      id: "8f834201-3844-4c6c-b903-ab1f5316acf5",
-      date: "2025-10-08T19:47:42.301Z",
-      content: "First TODO",
-      done: false
-    },
-    {
-      id: "c24e21e3-fbb5-4aa8-8c8f-2f46fe2f866c",
-      date: "2025-10-08T19:47:42.302Z",
-      content: "Updated!",
-      done: false
-    }
-  ];
+interface HomeTodo{
+    id: string;
+    content: string;
 
-function HomePage() {
-    console.log("todos", todos);
+}
 
+    function HomePage() {
+    const [totalPages, setTotalPages] = React.useState(0);
     const [page, setPage] = React.useState(1); 
+    const [todos, setTodos] = React.useState<HomeTodo[]>([]);    console.log(totalPages)
+    const hasMorePages = totalPages > page;
+
+    // Load basic info on page launch
+    React.useEffect(() => {
+        console.log(page);
+        todoController.get({ page }).then(({ todos, pages }) => {
+            setTodos(todos);
+            setTotalPages(pages);
+        });
+        }, [page]);
+    
     return (
     
     <main>
@@ -95,7 +98,7 @@ function HomePage() {
             })}
              
 
-              <tr>
+              {/* <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   Carregando...
                 </td>
@@ -105,9 +108,9 @@ function HomePage() {
                 <td colSpan={4} align="center">
                   Nenhum item encontrado
                 </td>
-              </tr>
+              </tr> */}
 
-              <tr>
+              {hasMorePages && (<tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   <button
                     data-type="load-more" onClick={() => setPage(page + 1)}
@@ -124,7 +127,7 @@ function HomePage() {
                     </span>
                   </button>
                 </td>
-              </tr>
+              </tr>)}
 
           </tbody>
         </table>
