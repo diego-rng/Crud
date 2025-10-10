@@ -20,9 +20,13 @@ interface HomeTodo{
 
     // Load basic info on page launch
     React.useEffect(() => {
-        console.log(page);
         todoController.get({ page }).then(({ todos, pages }) => {
-            setTodos(todos);
+            setTodos((oldTodos) => {
+                return [
+                    ...oldTodos,
+                    ...todos,
+                ]
+            });
             setTotalPages(pages);
         });
         }, [page]);

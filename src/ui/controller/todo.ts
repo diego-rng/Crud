@@ -1,13 +1,13 @@
 import { todoRepository, type TodoRepositoryGetOutput } from "@ui/repository/todo.ts";
 
 interface TodoControllerGetParams { 
-    page?: number;
-    limit?: number;
+    page: number;
 }
-async function get({ page, limit, }: TodoControllerGetParams): Promise<TodoRepositoryGetOutput> {
+async function get(params: TodoControllerGetParams) {
+    console.log(params);
     return todoRepository.get({
-        page:page || 1,
-        limit:10,
+        page: params.page,
+        limit:1,
     });
 }
 

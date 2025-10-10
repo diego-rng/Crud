@@ -86,9 +86,11 @@ CLEAR_DB();
 const firstTODO = create("First TODO");
 // deleteByID(firstTODO.id);
 const secondTODO = create ("Second TODO");
-update(secondTODO.id, {
-    content: "Updated!"
-});
+// update(secondTODO.id, {
+//     content: "Updated!"
+// });
+const thirdTodo = create ("Third TODO");
+const fourthTodo = create ("Fourth TODO");
 const todos = read();
 console.log(todos);
 console.log(todos.length);
