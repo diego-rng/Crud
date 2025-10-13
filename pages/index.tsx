@@ -14,6 +14,7 @@ interface HomeTodo{
 
     function HomePage() {
     const initialLoadComplete = React.useRef(false);
+    const [newTodoContent, setNewTodoContent] = React.useState("");
     const [totalPages, setTotalPages] = React.useState(0);
     const [page, setPage] = React.useState(1); 
     const [search, setSearch] = React.useState("");
@@ -50,10 +51,31 @@ interface HomeTodo{
         <div className="typewriter">
           <h1>O que fazer hoje?</h1>
         </div>
-        <form>
+        <form onSubmit= {(event) => {
+            event.preventDefault();
+            todoController.create({
+                content: newTodoContent,
+                onSuccess(todo: HomeTodo) {
+                    setTodos((oldTodos) => {
+                        return[
+                            todo, 
+                            ...oldTodos
+                        ]
+                    });
+                    setNewTodoContent("");
+                },
+                onError() {
+                    alert("You need to provide content to create a TODO.")
+                }
+                });
+        }}>
           <input
             type="text"
             placeholder="Correr, Estudar..."
+            value={newTodoContent}
+            onChange={function newTodoHandler(event) {
+                setNewTodoContent(event.target.value);
+            }}
             />
           <button
             type="submit"
