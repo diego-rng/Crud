@@ -13,26 +13,33 @@ interface HomeTodo{
 }
 
     function HomePage() {
+    const initialLoadComplete = React.useRef(false);
     const [totalPages, setTotalPages] = React.useState(0);
     const [page, setPage] = React.useState(1); 
-    const [todos, setTodos] = React.useState<HomeTodo[]>([]);    console.log(totalPages)
+    const [search, setSearch] = React.useState("");
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [todos, setTodos] = React.useState<HomeTodo[]>([]);    /* console.log(totalPages) */
+    const homeTodos = todoController.filterTodosByContent<HomeTodo>(search, todos);
+    
     const hasMorePages = totalPages > page;
+    const hasNoTodos = homeTodos.length === 0 && !isLoading;
 
     // Load basic info on page launch
     React.useEffect(() => {
-        todoController.get({ page }).then(({ todos, pages }) => {
-            setTodos((oldTodos) => {
-                return [
-                    ...oldTodos,
-                    ...todos,
-                ]
+        if (!initialLoadComplete.current) {
+            todoController.get({ page }).then(({ todos, pages }) => {
+                setTodos(todos);
+                setTotalPages(pages);
+            })
+            .finally(() => {
+                setIsLoading(false);
+                initialLoadComplete.current = true;
             });
-            setTotalPages(pages);
-        });
-        }, [page]);
+        }
+        }, []);
     
     return (
-    
+        
     <main>
       <GlobalStyles themeName="red"/>
       <header
@@ -62,6 +69,9 @@ interface HomeTodo{
           <input
             type="text"
             placeholder="Filtrar lista atual, ex: Dentista"
+            onChange={() => {
+                console.log("Change!")
+            }}
             />
         </form>
 
@@ -102,22 +112,36 @@ interface HomeTodo{
             })}
              
 
-              {/* <tr>
+              {isLoading && ( <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   Carregando...
                 </td>
-              </tr>
+              </tr>)}
 
-              <tr>
+              {hasNoTodos && (<tr>
                 <td colSpan={4} align="center">
                   Nenhum item encontrado
                 </td>
-              </tr> */}
+              </tr>) }
 
               {hasMorePages && (<tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   <button
-                    data-type="load-more" onClick={() => setPage(page + 1)}
+                    data-type="load-more" onClick={() => {
+                        setIsLoading(true);
+                        const nextPage = page + 1;
+                        setPage(nextPage);
+                        
+                         todoController.get({ page : nextPage }).then(({ todos, pages }) => {
+                            setTodos((oldTodos) => {
+                                return [...oldTodos, ...todos]
+                            });
+                            setTotalPages(pages);
+                         })
+                         .finally(() => {
+                            setIsLoading(false);
+                         });
+                    }}
                     >
                     Página {page}, Carregar mais{" "}
                     <span
