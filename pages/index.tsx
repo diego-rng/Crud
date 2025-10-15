@@ -9,6 +9,7 @@ const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
 interface HomeTodo{
     id: string;
     content: string;
+    done:boolean;
 
 }
 
@@ -116,11 +117,49 @@ interface HomeTodo{
                 <td>
                   <input
                     type="checkbox"
+                    checked={todo.done}
+                    onChange={function handleToggle() {
+                        // console.log ("test");
+                        // setTodos((currentTodos) => { 
+                        //     return currentTodos.map((currentTodo) =>{
+                        //         if(currentTodo.id === todo.id) {
+                        //             return {
+                        //                 ...currentTodo, 
+                        //                 done: !currentTodo.done, 
+                        //             };
+                        //         }
+
+                        //         return currentTodo;
+                        //     });
+                        // });
+
+                        todoController.toggleDone({
+                            id: todo.id,
+                            onError() {
+                                alert("Failure when updating TODOs.")
+                            },
+                            updateTodoOnScreen() {
+                                setTodos((currentTodos) => { 
+                            return currentTodos.map((currentTodo) =>{
+                                if(currentTodo.id === todo.id) {
+                                    return {
+                                        ...currentTodo, 
+                                        done: !currentTodo.done, 
+                                    };
+                                }
+
+                                return currentTodo;
+                            });
+                        });
+                            },
+                        });
+                    }}
                     />
                 </td>
                 <td>{todo.id.substring(0, 4)}</td>
                 <td>
-                    {todo.content}
+                    {!todo.done && todo.content}
+                    {todo.done && <s>{todo.content}</s>}
                 </td>
                 <td align="right">
                   <button

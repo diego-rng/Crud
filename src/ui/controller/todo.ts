@@ -7,7 +7,7 @@ interface TodoControllerGetParams {
     page: number;
 }
 async function get(params: TodoControllerGetParams) {
-    console.log(params);
+    // console.log(params);
     return todoRepository.get({
         page: params.page,
         limit:2,
@@ -47,9 +47,29 @@ function create({ content, onSuccess, onError }: TodoControllerCreateParams) {
     
 }
 
+interface TodoControllerToggleDoneParams {
+    id: string;
+    updateTodoOnScreen: () => void;
+    onError: () => void;
+}
+
+function toggleDone({ id, updateTodoOnScreen, onError }: TodoControllerToggleDoneParams) {
+    // Optimistic Update
+    // updateTodoOnScreen(); 
+    todoRepository.toggleDone(id)
+    .then(() => {
+        // Real Update
+        updateTodoOnScreen();
+    })
+    .catch(() => {
+        onError();
+    }); 
+}
+
 
 export const todoController ={
     get, 
     filterTodosByContent,
     create, 
+    toggleDone,
 };
