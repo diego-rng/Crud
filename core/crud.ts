@@ -42,7 +42,7 @@ export function read(): Array<Todo> {
     return [];
 }
 
-function update(id: UUID, partialTodo: Partial<Todo>): Todo {
+export function update(id: UUID, partialTodo: Partial<Todo>): Todo {
     let updatedTodo;
     const todos=read();
     todos.forEach((currentTodo) =>{
@@ -82,15 +82,15 @@ function CLEAR_DB() {
     fs.writeFileSync(DB_FILE_PATH, "");
 }
 // [SIMULATION]
-CLEAR_DB();
-const firstTODO = create("First TODO");
-// deleteByID(firstTODO.id);
-const secondTODO = create ("Second TODO");
-// update(secondTODO.id, {
-//     content: "Updated!"
-// });
-const thirdTodo = create ("Third TODO");
-const fourthTodo = create ("Fourth TODO");
-const todos = read();
-console.log(todos);
-console.log(todos.length);
+// CLEAR_DB();
+// const firstTODO = create("First TODO");
+// // deleteByID(firstTODO.id);
+// const secondTODO = create ("Second TODO");
+// // update(secondTODO.id, {
+// //     content: "Updated!"
+// // });
+// const thirdTodo = create ("Third TODO");
+// const fourthTodo = create ("Fourth TODO");
+// const todos = read();
+// console.log(todos);
+// console.log(todos.length);

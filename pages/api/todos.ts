@@ -6,7 +6,7 @@ export default function handler(
     request:NextApiRequest, 
     response:NextApiResponse
 ) {
-    console.log(request.method);
+    // console.log(request.method);
 
     if(request.method === "GET"){
         todoController.get(request, response);

@@ -66,7 +66,7 @@ interface HomeTodo{
                 },
                 onError() {
                     alert("You need to provide content to create a TODO.")
-                }
+                },
                 });
         }}>
           <input
