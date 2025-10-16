@@ -10,9 +10,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "npm run lint -- --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test dev http://localhost:3000 cy:run"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,7 @@
     "@types/react": "19.2.0",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "cypress": "^15.4.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
@@ -32,6 +35,7 @@
     "eslint-plugin-react": "^7.32.2",
     "nodemon": "^3.1.10",
     "prettier": "^2.8.7",
+    "start-server-and-test": "^2.1.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
