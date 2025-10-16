@@ -107,22 +107,17 @@ async function deleteById(req: NextApiRequest, res: NextApiResponse) {
         res.status(400).json({
         error:{
             message: `You must provide a valid ID.`,
-        }
-    })
-    }
-    try {
-
-        }
-    const todoId = req.query.id as string;
-    await todoRepository.deleteById(todoId);
-    res.status(200).json({
-        debug: {
-            todoId,
         },
     })
+    return;
+    }
+    try {
+    const todoId = parsedQuery.data.id;
+    await todoRepository.deleteById(todoId);
+    res.status(204).end();
 } catch(err) {
     if(err instanceof HttpNotFoundError) {
-        res.status(err.status).json({
+        return res.status(err.status).json({
            error:{
                message: err.message,
            }

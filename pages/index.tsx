@@ -164,6 +164,19 @@ interface HomeTodo{
                 <td align="right">
                   <button
                     data-type="delete"
+                    onClick= {function handleClick() {
+                        todoController.deleteById(todo.id)
+                        .then(() => {
+                            setTodos((currentTodos) => {
+                                return currentTodos.filter((currentTodo) => {
+                                    return currentTodo.id !== todo.id; 
+                                });
+                            });
+                        })
+                        .catch(() => {
+                            console.error("Failed to delete!")
+                        });
+                    }}
                     >
                     Apagar
                   </button>
