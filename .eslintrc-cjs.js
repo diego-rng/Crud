@@ -1,13 +1,18 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  parser: "@babel/eslint-parser",
+  parserOptions:{
+    ecmaVersion: latest,
+    sourceType: "module",
+  },
   env: {
+    es6: true,
     browser: true,
-    es2021: true,
     node: true,
     "cypress/globals": true,
   },
   plugins: ["react", "prettier", "@typescript-eslint", "cypress", "chai-friendly", "no-only-tests"],
   extends: [
+    "standard-with-typescript",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
@@ -27,7 +32,7 @@ module.exports = {
   },
   ignorePatterns: ["node_modules/", ],
   rules: {
-    "no-console": ["error", {allow: ["warn", "error"]}],
+    "no-console": ["error" , {allow: ["warn", "error"]}],
     "react/no-unknown-property" : ['error', { ignore: ['jsx', 'global']}],
     "no-unused-expressions": 0,
     "chai-friendly/no-unused-expressions": 2,

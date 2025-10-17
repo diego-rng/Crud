@@ -1,7 +1,7 @@
 /**
  * @type {import ('next').NextConfig}
  */
-const nextConfig = {
+var nextConfig = {
     /* config options here*/
     reactStrictMode: true,
 };
