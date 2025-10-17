@@ -14,7 +14,7 @@ describe("/ - Todo Feed", () => {
                 body:{todo: {
                     id: uuid(),
                     date: new Date,
-                    content: "test todo",
+                    content: "Test Todo",
                     done: false,
                 }
                 },
@@ -22,15 +22,15 @@ describe("/ - Todo Feed", () => {
         }).as('createTodo');
         // 1 - Open page
         cy.visit(BASE_URL);
-        // 2 - Select Todo Input
-        const $inputAddTodo = cy.get("input[name='add-todo']");
-        // 3 - Type in a new "Test input"
-        $inputAddTodo.type("Test Todo");
+        // 2 - Select Todo Input and 3 - Type in a new "Test input"
+        const inputAddTodo = "input[nameadd-todo']";
+        cy.get(inputAddTodo).type("Test Todo");
         // 4 - Click the "+" button
-        const $btnAddTodo = cy.get("[aria-label='Adicionar novo item']");
-        $btnAddTodo.click();
-        // 5 - Check if a new element has appeared in the page
+        const buttonAddTodo = "[aria-label='Adicionar novo item']";
+        cy.get(buttonAddTodo).click();
 
-        // STOP
+        // 5 - Check if a new element has appeared in the page
+        cy.get("table > tbody").contains("Test Todo");
+        expect("texto").to.be.equal("texto");
     });
 });
