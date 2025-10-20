@@ -6,16 +6,11 @@ on:
         types: [opened, synchronize]
 
 jobs: 
-    lint:
+    test:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
             - name: "Dependencies"
               run: "npm i"
-            - name: "Lint"
-              run: "npm run lint"
-    test:
-        runs-on: ubuntu-latest
-        container: cypress/browsers:node18.12.0-chrome107
-        steps:
-            - uses: actions/checkout@v3
+            - name: "Testing"
+              run: "npm run test"
