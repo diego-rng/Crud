@@ -62,6 +62,7 @@
   },
   "homepage": "https://github.com/diego-rng/Crud#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.76.1",
     "fs": "^0.0.1-security",
     "next": "^15.5.4",
     "react": "^19.2.0",

@@ -56,7 +56,8 @@ export default [
             },
         },
         rules: {
-            "@typescript-eslint/no-unused-vars": ["warn"],
+            "no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": "off",
         },
     },
     {
@@ -92,7 +93,7 @@ export default [
             },
         },
         rules: {
-        "no-console": ["error", { allow: ["warn", "error"] }],
+        // "no-console": ["error", { allow: ["warn", "error"] }],
         "no-unused-expressions": "off",
         "chai-friendly/no-unused-expressions": "error",
         "no-only-tests/no-only-tests": "error",

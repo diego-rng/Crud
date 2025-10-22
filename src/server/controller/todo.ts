@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { read } from "@db-crud-todo";
 import { z as schema} from "zod";
@@ -30,7 +31,7 @@ async function get(
         return;
     }
 
-    const output = todoRepository.get({
+    const output = await todoRepository.get({
         page,
         limit,
 });

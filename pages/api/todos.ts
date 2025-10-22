@@ -2,19 +2,19 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { read } from "@db-crud-todo";
 import { todoController } from "@server/controller/todo.ts";
 
-export default function handler(
+export default async function handler(
     request:NextApiRequest, 
     response:NextApiResponse
 ) {
     // console.log(request.method);
 
     if(request.method === "GET"){
-        todoController.get(request, response);
+        await todoController.get(request, response);
         return;
     }
 
     if (request.method === "POST"){
-        todoController.create(request, response);
+        await todoController.create(request, response);
         return;
     }
     

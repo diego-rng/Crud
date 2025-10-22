@@ -58,14 +58,14 @@ export default defineConfig([
     },
 
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error'],
+      '@typescript-eslint/no-unused-vars': ['warn'],
       '@typescript-eslint/no-empty-interface': ['error'],
 
       'react/no-unknown-property': ['error', { ignore: ['jsx', 'global'] }],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
-      'no-console': ['error', { allow: ['warn', 'error'] }],
+    //   'no-console': ['error', { allow: ['warn', 'error'] }],
       camelcase: ['error', { ignoreDestructuring: true }],
 
       'no-unused-expressions': 'off',

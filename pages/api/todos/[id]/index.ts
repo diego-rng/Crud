@@ -1,7 +1,7 @@
 import { todoController } from "@server/controller/todo.ts";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(
+export default async function handler(
     request: NextApiRequest, 
     response: NextApiResponse
 ) {
@@ -10,7 +10,7 @@ export default function handler(
     // const todoId = req.query.id;
     // res.end(`Post: ${todoId}`);
     if(request.method === "DELETE") {
-            todoController.deleteById(request, response);
+            await todoController.deleteById(request, response);
             return;
         }
     
