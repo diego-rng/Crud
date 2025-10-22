@@ -1,12 +1,12 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "module": "nodenext",
-    "target": "esnext",
-    "types": [
-      "node"
-    ],
-    "sourceMap": true,
+      "module": "nodenext",
+      "target": "esnext",
+      "types": [
+          "node"
+        ],
+        "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "noUncheckedIndexedAccess": true,
@@ -23,8 +23,8 @@
       ],
       "@server/*": [
         "src/server/*"
-      ],
-      "@api-todos": [
+    ],
+    "@api-todos": [
         "pages/api/todos.ts"
       ],
       "@db": [
@@ -37,11 +37,12 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+        "dom",
+        "dom.iterable",
+        "esnext"
     ],
     "allowJs": true,
+    "checkJs" : true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "incremental": true,
@@ -58,9 +59,11 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "next.config.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.config.ts",
   ]
 }

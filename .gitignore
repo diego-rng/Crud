@@ -143,3 +143,5 @@ vite.config.ts.timestamp-*
 # ssh files
 ssh.txt
 ssh.txt.pub
+pass
+

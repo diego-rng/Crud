@@ -1,50 +1,110 @@
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import js from '@eslint/js';
 import pluginReact from "eslint-plugin-react";
+import * as tsEslint from 'typescript-eslint';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import globals from "globals";
+import cypressPlugin from "eslint-plugin-cypress";
+import chaiFriendly from "eslint-plugin-chai-friendly";
+import next from "next";
+import noOnlyTests from 'eslint-plugin-no-only-tests/rules/no-only-tests';
+import prettier from "eslint-plugin-prettier";
 
-const { defineFlatConfig } = require ('eslint-define-config')
-const js = require('@eslint/js');
-const customConfig = require('./custom-config.js')
 
-export default defineFlatConfig([
-    js.configs.recomended,
-    customConfig,
-  { 
-      parser: "@babel/eslint-parser",
-       parserOptions:{
-         ecmaVersion: "latest",
-         sourceType: "module",
-       },
-       env: {
-         es6: true,
-         browser: true,
-         node: true,
-         "cypress/globals": true,
-       },
-       extends: [
-         "standard-with-typescript",
-         "eslint:recommended",
-         "plugin:@typescript-eslint/recommended",
-         "plugin:react/recommended",
-         "plugin:chai-friendly/recommended",
-         "plugin:cypress/recommended",
-         "plugin:prettier/recommended",
-       ],
-       plugins: ["js", "react", "prettier", "@typescript-eslint", "cypress", "chai-friendly", "no-only-tests"],
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    overrides: [],
-    settings: {
-      react: {
-        version: "detect",
-      },
+/**
+ * @type {import('eslint').Linter.FlatConfig[]}
+ */
+export default [
+    js.configs.recommended,
+    ...tsEslint.configs.recommended,
+
+    // React-Specific rules
+    {
+        files: ["**/*.{jsx,tsx}"],
+        plugins:{
+            react: pluginReact,
+        },
+        languageOptions: {
+            globals: globals.browser,
+            parserOptions: {
+                ecmaFeatures: {jsx: true},
+            },
+        },
+        settings: {
+            react:{
+                version: "detect"
+            },
+        },
+        rules: {
+            "react/no-unknown-property" : ["error", { ignore: ["jsx", "global"]}],
+        },
     },
-    ignorePatterns: ["node_modules/", ],
-    rules: {
-      "no-console": ["error" , {allow: ["warn", "error"]}],
-      "react/no-unknown-property" : ['error', { ignore: ['jsx', 'global']}],
-      "no-unused-expressions": 0,
-      "chai-friendly/no-unused-expressions": 2,
-      "no-only-tests/no-only-tests": "error",
+    // TS-Specific rules
+    {
+        files: ["**/*.{ts,tsx}"],
+        plugins: {
+            "@typescript-eslint": tsPlugin,
+        },
+        languageOptions: {
+            parser: tsEslint.parser,
+            parserOptions: {
+                project: "./tsconfig.json",
+                sourceType: "module",
+            },
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+            },
+        },
+        rules: {
+            "@typescript-eslint/no-unused-vars": ["warn"],
+        },
     },
-}
-]);
+    {
+        files: ["**/*.{js,jsx}"],
+        languageOptions: {
+            parser: tsEslint.parser,
+            parserOptions: {
+                sourceType: "module",
+            },
+        },
+    },
+
+    // Cypress, Chai and Prettier integration
+
+    {
+        files: ["**/*.{js,ts,jsx,tsx}"],
+        plugins: {
+            cypress: cypressPlugin,
+            "chai-friendly": chaiFriendly,
+            "no-only-tests": noOnlyTests,
+            prettier,
+        },
+        languageOptions: {
+            globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.mocha,
+        ...globals.jest,
+        cy: true,
+        Cypress: true,
+        assert : true,
+            },
+        },
+        rules: {
+        "no-console": ["error", { allow: ["warn", "error"] }],
+        "no-unused-expressions": "off",
+        "chai-friendly/no-unused-expressions": "error",
+        "no-only-tests/no-only-tests": "error",
+        "no-duplicate-imports": "error",
+        "prettier/prettier": "error",
+        },
+        ignores: [
+            "node_modules/",
+            "eslint.config.ts",
+            "next.config.ts",
+            "*.config.*",
+            ".next/",
+        ],
+    },
+];

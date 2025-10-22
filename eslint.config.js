@@ -1,4 +1,3 @@
-// eslint.config.js
 import { defineConfig } from 'eslint/config';
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
@@ -24,7 +23,7 @@ export default defineConfig([
   js.configs.recommended,
 
   {
-    ignores: ['.config/*', 'node_modules/', 'dist/', 'build/', 'coverage/'],
+    ignores: ['**/*.config.*', 'node_modules/', 'dist/', 'build/', 'coverage/', 'eslint.config.js', 'eslint.config.ts', 'next.config.ts'],
   },
 
   ...compat.extends(
