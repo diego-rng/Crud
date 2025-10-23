@@ -9,6 +9,11 @@ on:
     pull_request:
         types: [opened, synchronize]
 
+env:
+    VERCEL_PROJECT_NAME: crud
+    VERCEL_ORG_ID: team_CcTwMpqqgQpPm5rRs3f4foGK
+    VERCEL_PROJECT_ID: prj_4ruixftIoKQ1HEhexYlLaAhZyH9O
+
 jobs: 
     deploy: 
         runs-on: ubuntu-latest
@@ -21,4 +26,4 @@ jobs:
             - name: "Install Dependencies"
               run: "npm i"
             - name: "Vercel Deploy"
-              run: "vercel --prod"
+              run: "vercel --prod --token=${{ secrets.VERCEL_TOKEN }}"
