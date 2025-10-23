@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextApiRequest, NextApiResponse } from "next";
-import { read } from "@db-crud-todo";
 import { z as schema} from "zod";
 import { todoRepository } from "@server/repository/todo.ts";
 import { error } from "console";

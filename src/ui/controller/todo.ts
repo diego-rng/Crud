@@ -2,7 +2,6 @@ import { todoRepository, type TodoRepositoryGetOutput } from "@ui/repository/tod
 import { v4 as uuid } from 'uuid';
 import type { Todo } from "@ui/schema/todo.ts"
 import { z as schema} from "zod";
-import { deleteByID } from "@db-crud-todo";
 
 interface TodoControllerGetParams { 
     page: number;

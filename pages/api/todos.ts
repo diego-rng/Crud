@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { read } from "@db-crud-todo";
 import { todoController } from "@server/controller/todo.ts";
 
 export default async function handler(

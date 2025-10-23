@@ -1,0 +1,24 @@
+name: "[CD] Continuous Delivery"
+
+# Whenever there is a commit or an open Pull Request
+on: 
+    push: 
+        branches: [main]
+
+on:
+    pull_request:
+        types: [opened, synchronize]
+
+jobs: 
+    deploy: 
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v3
+
+            - name: "Debug"
+              run: |
+                ls -la 
+            - name: "Install Dependencies"
+              run: "npm i"
+            - name: "Vercel Launch"
+              run: "vercel --prod"
