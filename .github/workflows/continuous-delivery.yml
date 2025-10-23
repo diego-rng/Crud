@@ -1,9 +1,9 @@
 name: "[CD] Continuous Delivery"
 
 # Whenever there is a commit or an open Pull Request
-on: 
-    push: 
-        branches: [main]
+# on: 
+#     push: 
+#         branches: [main]
 
 on:
     pull_request:
@@ -20,5 +20,5 @@ jobs:
                 ls -la 
             - name: "Install Dependencies"
               run: "npm i"
-            - name: "Vercel Launch"
+            - name: "Vercel Deploy"
               run: "vercel --prod"
