@@ -49,7 +49,7 @@ const TodoCreateBodySchema = schema.object({
 async function create(req: NextApiRequest, res: NextApiResponse) {
     // FFV
     const body = TodoCreateBodySchema.safeParse(req.body);
-
+    // Type Narrowing
     if(!body.success) {
         res.status(400).json({
             error: {
@@ -61,11 +61,21 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // Data should have come through by here
-    const createdTodo = await todoRepository.createByContent(body.data.content);
+    
+    try {
+        const createdTodo = await todoRepository.createByContent(body.data.content);
 
     res.status(201).json({
         todo: createdTodo,
     });
+
+    }catch {
+        res.status(400).json ({
+            error: {
+                message: "Failed to create TODO",
+            },
+        });
+    }
 }
 
 async function toggleDone (req: NextApiRequest, res: NextApiResponse) {

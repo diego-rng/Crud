@@ -68,7 +68,7 @@ export default defineConfig([
     //   'no-console': ['error', { allow: ['warn', 'error'] }],
       camelcase: ['error', { ignoreDestructuring: true }],
 
-      'no-unused-expressions': 'off',
+      'no-unused-expressions': ['warn'],
       'chai-friendly/no-unused-expressions': 'error',
       'no-only-tests/no-only-tests': 'error',
 
