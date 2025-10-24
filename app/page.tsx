@@ -1,3 +1,4 @@
+"use client";
 import React from "react"
 import { GlobalStyles } from "@ui/theme/GlobalStyles.tsx";
 import { todoController } from "@ui/controller/todo.ts";

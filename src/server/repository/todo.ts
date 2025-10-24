@@ -18,7 +18,7 @@ async function get({ page, limit}: TodoRepositoryGetParams = {}
     const currentLimit = limit || 20;
     const startIndex = (currentPage -1) * currentLimit;
     const endIndex = currentPage * currentLimit - 1;
-    const {data, error, count} = await supabase.from("todos").select("*", {count: "exact",}).order("date", { ascending:false }).range(startIndex, endIndex);
+    const {data, error, count} = await supabase().from("todos").select("*", {count: "exact",}).order("date", { ascending:false }).range(startIndex, endIndex);
 
     if(error) throw new Error("Failed to fetch data.");
 
@@ -54,7 +54,7 @@ async function get({ page, limit}: TodoRepositoryGetParams = {}
 }
 
 async function createByContent(content: string): Promise<Todo>{
-    const {data, error} = await supabase.from("todos")
+    const {data, error} = await supabase().from("todos")
     .insert([
         {
             content,
@@ -74,7 +74,7 @@ async function createByContent(content: string): Promise<Todo>{
 }
 
 async function getTodoById(id:string): Promise<Todo> {
-    const {data, error} = await supabase
+    const {data, error} = await supabase()
     .from("todos")
     .select("*")
     .eq("id", id)
@@ -90,7 +90,7 @@ async function getTodoById(id:string): Promise<Todo> {
 
 async function toggleDone (id: string): Promise<Todo> {
     const todo = await getTodoById(id);
-    const { data, error } = await supabase
+    const { data, error } = await supabase()
     .from("todos")
     .update({
         done: !todo.done,
@@ -119,7 +119,7 @@ async function toggleDone (id: string): Promise<Todo> {
 }
 
 async function deleteById(id: string) {
-    const { error } = await supabase.from("todos").delete().match({
+    const { error } = await supabase().from("todos").delete().match({
         id,
     });
 

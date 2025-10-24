@@ -1,3 +1,14 @@
+import { todoController } from "@server/controller/todo.ts";
+
+export async function GET(request: Request) {
+    return await todoController.get(request,);
+}
+
+export async function POST(request: Request) {
+    return await todoController.create(request,); 
+}
+
+/*
 import type { NextApiRequest, NextApiResponse } from "next";
 import { todoController } from "@server/controller/todo.ts";
 
@@ -21,3 +32,4 @@ export default async function handler(
         message: "Method not allowed.",
     });
 };
+*/
